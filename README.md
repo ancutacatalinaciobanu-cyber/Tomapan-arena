@@ -1,5 +1,9 @@
 # ȚOMAPAN Arena – multiplayer pentru clasa a VII-a
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2Fancutacatalinaciobanu-cyber%2FTomapan-arena)
+
+Apăsați butonul pentru a publica folosind configurația gratuită inclusă.
+
 ## Ce include
 - Până la 35 de elevi, fiecare pe telefon, fără cont.
 - Profesorul creează o cameră cu cod de 6 caractere și QR.
