@@ -1,0 +1,20 @@
+name: Render multiplayer verification
+on:
+  push:
+    paths:
+      - '.github/workflows/render-test.yml'
+  workflow_dispatch:
+jobs:
+  deployed-multiplayer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+        env:
+          TEST_URL: https://tomapan-arena-4lx0.onrender.com
