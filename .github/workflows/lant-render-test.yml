@@ -1,10 +1,5 @@
 name: LANȚ on Render
 on:
-  push:
-    paths:
-      - 'lant-server.js'
-      - 'public/lant/**'
-      - '.github/workflows/lant-render-test.yml'
   workflow_dispatch:
 jobs:
   verify-live:
