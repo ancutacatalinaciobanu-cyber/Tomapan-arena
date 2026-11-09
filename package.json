@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "test": "node tests/multiplayer.cjs"
+    "test": "node tests/multiplayer.cjs && node tests/lant.cjs"
   },
   "dependencies": {
     "express": "^4.21.2",

@@ -31,4 +31,6 @@ io.on('connection',s=>{
  s.on('scoreRound',({code,token}={},cb)=>{const r=getRoom(code);if(!authTeacher(s,r,token)||r.phase!=='review')return cb?.({error:'Nu se poate puncta'});r.roundScores={};for(const p of r.players.values()){const points=(r.results[p.id]||[]).reduce((sum,a)=>sum+(a.valid?(a.duplicate?5:10):0),0);p.score+=points;r.roundScores[p.id]=points}r.history.push({round:r.round,letter:r.letter,points:r.roundScores});r.phase='scores';emit(r);cb?.({ok:true})});
  s.on('leaveRoom',({code,token,id}={},cb)=>{const r=getRoom(code);if(!authTeacher(s,r,token)||r.phase!=='lobby')return cb?.({error:'Poți elimina elevi doar înainte de prima rundă'});r.players.delete(id);emit(r);cb?.({ok:true})});
 });
+require('./lant-server')(app,io);
 server.listen(process.env.PORT||3000,()=>console.log('ȚOMAPAN Arena online'));
+

@@ -1,0 +1,37 @@
+name: LANȚ on Render
+on:
+  push:
+    paths:
+      - 'lant-server.js'
+      - 'public/lant/**'
+      - '.github/workflows/lant-render-test.yml'
+  workflow_dispatch:
+jobs:
+  verify-live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Wait for LANȚ deployment
+        run: |
+          node <<'JS'
+          (async()=>{
+            for(let i=0;i<60;i++){
+              try{
+                const r=await fetch('https://tomapan-arena-4lx0.onrender.com/lant/game.js',{signal:AbortSignal.timeout(15000)});
+                if(r.ok&&(await r.text()).includes("io('/lant')")){console.log('LANȚ is live');return}
+              }catch{}
+              await new Promise(resolve=>setTimeout(resolve,6000));
+            }
+            throw new Error('LANȚ deployment did not become available');
+          })().catch(e=>{console.error(e);process.exitCode=1});
+          JS
+      - name: Verify 35 players and 10 rounds
+        run: node tests/lant.cjs
+        env:
+          TEST_URL: https://tomapan-arena-4lx0.onrender.com

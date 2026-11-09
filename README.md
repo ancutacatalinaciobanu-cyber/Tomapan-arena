@@ -36,3 +36,23 @@ Publicați proiectul pe un serviciu de hosting Node.js care suportă WebSocket (
 - Profesorul validează răspunsurile, deoarece o simplă verificare a primei litere nu garantează că termenul există sau este în categoria corectă.
 - QR-ul este generat de aplicație, fără serviciu extern.
 - Recomandăm prenume sau pseudonime, nu date personale complete.
+
+
+## LANȚ – joc pentru copiii mai mici
+
+La aceeași adresă publică, deschideți `/lant/`. ȚOMAPAN rămâne disponibil la `/`.
+
+- Patru categorii: **Lucruri, Animale, Nume, Țări**.
+- **10 runde**, maximum **35 de jucători**, fiecare pe propriul dispozitiv.
+- Profesorul creează sesiunea fără cont, distribuie codul sau QR-ul și așteaptă înscrierea tuturor copiilor.
+- Cronometrul este comun și închide automat runda; profesorul o poate încheia mai devreme.
+- Elevii pot retrimite răspunsurile cât timp runda este deschisă. Răspunsurile nu sunt afișate altor elevi înainte de publicarea punctajelor.
+- Profesorul validează cuvintele: 10 puncte pentru răspuns valid și unic, 5 pentru răspuns valid repetat, 0 pentru răspuns invalid, gol sau cu altă inițială. Repetițiile se calculează doar între răspunsurile validate.
+- Procentul fiecărui copil este `puncte / (40 × runde punctate) × 100`. Maximum 400 de puncte pe joc. Egalitățile primesc același loc.
+- Profesorul poate corecta validitatea răspunsurilor celei mai recente runde punctate; totalurile și procentele se recalculează pentru toți copiii.
+- Export CSV cu loc, nume, punctaj, procent și punctele fiecărei runde.
+- Reconectare în aceeași filă, cu chei private separate pentru profesor și elevi. Codurile publice nu oferă controlul profesorului.
+
+LANȚ folosește un modul și un namespace Socket.IO separate, fără a modifica regulile sau interfața ȚOMAPAN. Sesiunile sunt în memoria serverului și expiră după 24 de ore; se pierd și la repornire/republicare. Exportați rezultatele înainte de a închide activitatea.
+
+`npm test` verifică ambele jocuri. Pentru LANȚ separat: `node tests/lant.cjs`; pentru serverul publicat: `TEST_URL=https://ADRESA.onrender.com node tests/lant.cjs`. Sunt verificate 35 de conexiuni simulate, cele 10 runde, reconectarea, permisiunile, cronometrul, punctajele, procentele și QR-ul.
